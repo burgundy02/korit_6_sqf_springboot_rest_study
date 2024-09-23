@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.rest.repository.ColorMapper">
+
+
+
+<!-- Color안에 들어있는 것들을 DB에 insert 해줌-->
+
+    <!-- 5-2 : xml에서 구현- 쿼리문 작성    // 6: serviceImpl-->
+    <insert id="save" parameterType="com.study.rest.entity.Color">
+        insert into color_tb
+        values
+            (0, #{colorName})
+        <!-- mapper가 DB랑 연결돼서 이 쿼리문 그대로 DB에서 코드를 작성해서 실행시킨다.
+    save: colorMapper에 있는 메소드 이름 / 그거를 이렇게 구현 하겠다. / 추가하고 싶은걸 DB에 추가한다-->
+    </insert>
+    <select id="findAll" resultType="com.study.rest.entity.Color">
+        select
+            colorId,
+            colorName
+        from
+            color_tb
+        order by
+            colorId
+    </select>
+</mapper>

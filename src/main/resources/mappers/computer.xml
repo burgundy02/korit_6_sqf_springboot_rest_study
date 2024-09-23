@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. mapper태그에 namespace를 써서 연결하고자 하는 Mapper의 경로를 쓴다. => 연결되면 mybites있어서 새 뜨고 새 누르면 연결된 Mapper로 감 -->
+<mapper namespace="com.study.rest.repository.ComputerMapper">
+
+    <!-- 2. 밑줄에 뜨는 거 눌러서 인터페이스를 구현함 -->
+    <insert id="save" parameterType="com.study.rest.entity.Computer">
+        <!-- 3. 쿼리문 작성하기 -->
+        insert into computer_tb    <!-- computer_tb에 insert into하겠다 -->
+        values(0, #{company}, #{cpu}, #{ram}, #{ssd}) <!-- 이 값들을( #{} : 표현식, 저 안에 들어있는 값을 넣으려고 씀)  -->
+    </insert>
+
+    <update id="update" parameterType="com.study.rest.entity.Computer">
+        update computer_tb
+        set
+            company = #{company},
+            cpu = #{cpu},
+            ram = #{ram},
+            ssd = #{ssd}
+        where
+            computerId = #{computerId}
+
+    </update>
+
+    <delete id="delete" parameterType="integer">
+        delete
+        from
+            computer_tb
+        where
+         computerId = #{id}
+    </delete>
+
+    <select id="findComputerByCompanyAndCpu"
+            parameterType="com.study.rest.entity.Computer"
+            resultType="com.study.rest.entity.Computer">
+        select
+            computerId,
+            company,
+            cpu,
+            ram,
+            ssd
+        from
+            computer_tb
+        where
+            company like concat("%", #{company}, "%")
+            and cpu like concat("%", #{cpu}, "%")
+        order by
+             computerId
+    </select>
+    <select id="findComputerById"
+            parameterType="integer"
+            resultType="com.study.rest.entity.Computer">
+        select
+            computerId,
+            company,
+            cpu,
+            ram,
+            ssd
+        from
+            computer_tb
+        where
+            computerId = #{id}
+    </select>
+</mapper>
